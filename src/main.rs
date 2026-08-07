@@ -22,7 +22,7 @@ fn main() -> std::io::Result<()> {
     world.add(Box::new(Sphere::new(Point3::new(0.0, -100.5, -1.0), 100.0)));
 
     // Camera 
-    let camera = Camera::new(image_width, aspect_ratio, 100);
+    let camera = Camera::new(image_width, aspect_ratio, 1000);
 
     camera.render(&mut buffer, &world);
 

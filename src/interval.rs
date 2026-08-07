@@ -1,5 +1,4 @@
 
-use std::cmp;
 
 pub struct Interval {
     min: f64,

@@ -15,6 +15,34 @@ impl Vec3 {
         Vec3{e: [0.0, 0.0, 0.0]}
     }
 
+    pub fn random() -> Self {
+        Vec3{e: [rand::random::<f64>(), rand::random::<f64>(), rand::random::<f64>()]}
+    }
+
+    pub fn random_range(min: f64, max: f64) -> Self {
+        Vec3{e: [rand::random_range(min..max), rand::random_range(min..max), rand::random_range(min..max)]}
+    }
+
+    pub fn random_unit() -> Self {
+        loop {
+            let p = Vec3::random_range(-1.0, 1.0);
+            let lengthsq = p.length_squared();
+            if 1e-160 < lengthsq && lengthsq <= 1.0 {
+                let n = p / lengthsq.sqrt();
+                return n;
+            }
+        }
+    }
+
+    pub fn random_on_hemisphere(normal: &Vec3) -> Self {
+        let p = Vec3::random_unit();
+        if dot(&p, normal) > 0.0 {
+            p 
+        } else {
+            -p 
+        }
+    }
+
     pub fn r(&self) -> f64 {
         self.e[0]
     }

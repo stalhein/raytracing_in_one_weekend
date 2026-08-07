@@ -10,6 +10,7 @@ use rand::RngExt;
 pub struct Camera {
     samples_pp: i32,
     samples_scale: f64,
+    max_depth: i32,
     image_width: i32,
     image_height: i32,
     aspect_ratio: f64,
@@ -41,6 +42,7 @@ impl Camera {
         Self {
             samples_pp: samples,
             samples_scale: 1.0 / samples as f64,
+            max_depth: samples,
             image_width: width,
             image_height: height,
             aspect_ratio: aspect,
@@ -60,9 +62,9 @@ impl Camera {
             for i in 0..self.image_width {
                 let mut pixel_colour = Colour::new(0.0, 0.0, 0.0);
 
-                for sample in 0..self.samples_pp {
+                for _sample in 0..self.samples_pp {
                     let ray = self.get_ray(i, j);
-                    pixel_colour = pixel_colour + self.ray_colour(&ray, world);
+                    pixel_colour = pixel_colour + self.ray_colour(&ray, self.max_depth, world);
                 }
 
                 pixel_colour = pixel_colour * self.samples_scale;
@@ -95,9 +97,12 @@ impl Camera {
         let _ = write!(out, "{} {} {}\n", rbyte, gbyte, bbyte);
     }
 
-    fn ray_colour(&self, ray: &Ray, world: &HittableList) -> Colour {
-        if let Some(hit) = world.hit(ray, Interval::new(0.0, f64::INFINITY)) {
-            return hit.normal();
+    fn ray_colour(&self, ray: &Ray, depth: i32, world: &HittableList) -> Colour {
+        if depth <= 0 { return Colour::new(0.0, 0.0, 0.0); }
+
+        if let Some(hit) = world.hit(ray, Interval::new(0.001, f64::INFINITY)) {
+            let direction = Vec3::random_on_hemisphere(&hit.normal()) + Vec3::random_unit();
+            return self.ray_colour(&Ray::new(&hit.position(), &direction), depth - 1, world) * 0.5;
         }
 
         let unit_direction = normalise(ray.direction());
