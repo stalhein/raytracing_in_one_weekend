@@ -12,7 +12,7 @@ use std::fs::File;
 
 fn main() -> std::io::Result<()> {
     let aspect_ratio: f64 = 16.0 / 9.0;
-    let image_width: i32 = 400;
+    let image_width: i32 = 1920;
 
     let mut buffer = String::new();
 
@@ -22,7 +22,7 @@ fn main() -> std::io::Result<()> {
     world.add(Box::new(Sphere::new(Point3::new(0.0, -100.5, -1.0), 100.0)));
 
     // Camera 
-    let camera = Camera::new(image_width, aspect_ratio, 1000);
+    let camera = Camera::new(image_width, aspect_ratio, 100);
 
     camera.render(&mut buffer, &world);
 
