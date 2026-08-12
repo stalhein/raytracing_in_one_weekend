@@ -11,11 +11,11 @@ impl Vec3 {
         Self {e: [x, y, z]}
     }
 
-    pub fn zero() -> Self {
+    pub fn _zero() -> Self {
         Vec3{e: [0.0, 0.0, 0.0]}
     }
 
-    pub fn random() -> Self {
+    pub fn _random() -> Self {
         Vec3{e: [rand::random::<f64>(), rand::random::<f64>(), rand::random::<f64>()]}
     }
 

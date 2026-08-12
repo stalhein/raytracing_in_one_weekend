@@ -13,25 +13,25 @@ impl Interval {
         }
     }
 
-    pub fn infinity() -> Self {
+    pub fn _infinity() -> Self {
         Self {
             min: f64::NEG_INFINITY,
             max: f64::INFINITY,
         }
     }
 
-    pub fn empty() -> Self {
+    pub fn _empty() -> Self {
         Self {
             min: f64::INFINITY,
             max: f64::NEG_INFINITY,
         }
     }
 
-    pub fn size(&self) -> f64 {
+    pub fn _size(&self) -> f64 {
         self.max - self.min
     }
 
-    pub fn contains(&self, value: f64) -> bool {
+    pub fn _contains(&self, value: f64) -> bool {
         self.min <= value && value <= self.max
     }
 

@@ -7,7 +7,7 @@ pub struct HitRecord {
     position: Point3,
     normal: Vec3,
     t: f64,
-    front_face: bool,
+    _front_face: bool,
 }
 
 impl HitRecord {
@@ -16,7 +16,7 @@ impl HitRecord {
             position: p,
             normal: n,
             t: a,
-            front_face: front,
+            _front_face: front,
         }
     }
 
@@ -32,8 +32,8 @@ impl HitRecord {
         self.t 
     }
 
-    pub fn front_face(&self) -> bool {
-        self.front_face
+    pub fn _front_face(&self) -> bool {
+        self._front_face
     }
 }
 
