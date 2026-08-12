@@ -7,6 +7,7 @@ use std::cmp;
 use std::fmt::Write;
 use rand::RngExt;
 
+
 pub struct Camera {
     samples_pp: i32,
     samples_scale: f64,
